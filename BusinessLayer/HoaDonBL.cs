@@ -8,7 +8,6 @@ namespace BusinessLayer
 {
     public class HoaDonBL
     {
-
         private HoaDonDL hoaDonDL = new HoaDonDL();
 
         public List<HoaDon> GetHoaDons()
@@ -17,25 +16,19 @@ namespace BusinessLayer
             {
                 return hoaDonDL.GetHoaDon();
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 throw ex;
             }
         }
-        public int XoaHoaDon(string soHD)
+        public bool XoaHoaDon(string soHD)
         {
             return hoaDonDL.DeleteHoaDon(soHD);
         }
-        public bool XuLyThanhToan(HoaDon hd)
+        public string XuLyThanhToan(HoaDon hd)
         {
-            hd.SoHD = hoaDonDL.GenerateMaHD();
             string soHD = hoaDonDL.ThemHoaDon(hd);
-            if (!string.IsNullOrEmpty(soHD))
-            {
-                hd.SoHD = soHD;
-                return true;
-            }
-            return false;
+            return soHD;
         }
 
     }

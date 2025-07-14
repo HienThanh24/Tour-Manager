@@ -11,10 +11,11 @@ namespace BusinessLayer
 
         ChiTietHoaDonDL CTHDdl = new ChiTietHoaDonDL();
 
-        public ChiTietHoaDon LayThongTinChiTiet(string soHD)
+        public ChiTietHD LayThongTinChiTiet(string soHD)
         {
             return CTHDdl.LayChiTietHoaDon(soHD);
         }
     }
 }
+
 

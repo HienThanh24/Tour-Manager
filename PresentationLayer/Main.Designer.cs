@@ -35,7 +35,7 @@ namespace PresentationLayer
             this.pnlSidebar = new System.Windows.Forms.Panel();
             this.btnTke = new System.Windows.Forms.Button();
             this.btnQLHoaDon = new System.Windows.Forms.Button();
-            this.btnDatTour = new System.Windows.Forms.Button();
+            this.btnTours = new System.Windows.Forms.Button();
             this.btnQLKHang = new System.Windows.Forms.Button();
             this.btnQLNV = new System.Windows.Forms.Button();
             this.btnDangXuat = new System.Windows.Forms.Button();
@@ -56,7 +56,7 @@ namespace PresentationLayer
             this.pnlSidebar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlSidebar.BackgroundImage")));
             this.pnlSidebar.Controls.Add(this.btnTke);
             this.pnlSidebar.Controls.Add(this.btnQLHoaDon);
-            this.pnlSidebar.Controls.Add(this.btnDatTour);
+            this.pnlSidebar.Controls.Add(this.btnTours);
             this.pnlSidebar.Controls.Add(this.btnQLKHang);
             this.pnlSidebar.Controls.Add(this.btnQLNV);
             this.pnlSidebar.Controls.Add(this.btnDangXuat);
@@ -88,6 +88,7 @@ namespace PresentationLayer
             this.btnTke.Text = "Báo cáo thống kê";
             this.btnTke.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnTke.UseVisualStyleBackColor = false;
+            this.btnTke.Click += new System.EventHandler(this.btnTke_Click);
             // 
             // btnQLHoaDon
             // 
@@ -109,25 +110,25 @@ namespace PresentationLayer
             this.btnQLHoaDon.UseVisualStyleBackColor = false;
             this.btnQLHoaDon.Click += new System.EventHandler(this.btnQLHoaDon_Click);
             // 
-            // btnDatTour
+            // btnTours
             // 
-            this.btnDatTour.BackColor = System.Drawing.Color.Transparent;
-            this.btnDatTour.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDatTour.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnDatTour.FlatAppearance.BorderSize = 0;
-            this.btnDatTour.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDatTour.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDatTour.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btnDatTour.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDatTour.Location = new System.Drawing.Point(750, 0);
-            this.btnDatTour.Name = "btnDatTour";
-            this.btnDatTour.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.btnDatTour.Size = new System.Drawing.Size(150, 73);
-            this.btnDatTour.TabIndex = 10;
-            this.btnDatTour.Text = "Đặt Tour";
-            this.btnDatTour.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnDatTour.UseVisualStyleBackColor = false;
-            this.btnDatTour.Click += new System.EventHandler(this.btnDatTour_Click);
+            this.btnTours.BackColor = System.Drawing.Color.Transparent;
+            this.btnTours.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTours.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnTours.FlatAppearance.BorderSize = 0;
+            this.btnTours.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTours.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTours.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btnTours.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTours.Location = new System.Drawing.Point(750, 0);
+            this.btnTours.Name = "btnTours";
+            this.btnTours.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnTours.Size = new System.Drawing.Size(150, 73);
+            this.btnTours.TabIndex = 10;
+            this.btnTours.Text = "Tours";
+            this.btnTours.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTours.UseVisualStyleBackColor = false;
+            this.btnTours.Click += new System.EventHandler(this.btnTours_Click);
             // 
             // btnQLKHang
             // 
@@ -323,7 +324,7 @@ namespace PresentationLayer
         private Button btnQLKHang;
         private Button btnQLNV;
         private Label lblUserInfo;
-        private Button btnDatTour;
+        private Button btnTours;
         private Button btnTke;
         private Button btnQLHoaDon;
     }

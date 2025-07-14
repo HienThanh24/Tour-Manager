@@ -31,17 +31,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrangChu));
             this.label_TourNoiBat = new System.Windows.Forms.Label();
             this.panel_Tour3 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSapa = new System.Windows.Forms.Button();
             this.label_Gia3 = new System.Windows.Forms.Label();
             this.label_TenTour3 = new System.Windows.Forms.Label();
             this.pictureBox_Tour3 = new System.Windows.Forms.PictureBox();
             this.panel_Tour1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnDaNang = new System.Windows.Forms.Button();
             this.label_Gia1 = new System.Windows.Forms.Label();
             this.label_TenTour1 = new System.Windows.Forms.Label();
             this.ptb_TourDN = new System.Windows.Forms.PictureBox();
             this.panel_Tour2 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnPhuQuoc = new System.Windows.Forms.Button();
             this.label_Gia2 = new System.Windows.Forms.Label();
             this.label_TenTour2 = new System.Windows.Forms.Label();
             this.pictureBox_Tour2 = new System.Windows.Forms.PictureBox();
@@ -71,7 +71,7 @@
             this.panel_Tour3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_Tour3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel_Tour3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel_Tour3.Controls.Add(this.button1);
+            this.panel_Tour3.Controls.Add(this.btnSapa);
             this.panel_Tour3.Controls.Add(this.label_Gia3);
             this.panel_Tour3.Controls.Add(this.label_TenTour3);
             this.panel_Tour3.Controls.Add(this.pictureBox_Tour3);
@@ -81,17 +81,19 @@
             this.panel_Tour3.Size = new System.Drawing.Size(381, 423);
             this.panel_Tour3.TabIndex = 6;
             // 
-            // button1
+            // btnSapa
             // 
-            this.button1.BackColor = System.Drawing.Color.Red;
-            this.button1.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(226, 366);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(140, 52);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Đặt ngay";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnSapa.BackColor = System.Drawing.Color.Red;
+            this.btnSapa.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSapa.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnSapa.Location = new System.Drawing.Point(226, 366);
+            this.btnSapa.Name = "btnSapa";
+            this.btnSapa.Size = new System.Drawing.Size(140, 52);
+            this.btnSapa.TabIndex = 3;
+            this.btnSapa.Tag = "T001";
+            this.btnSapa.Text = "Đặt ngay";
+            this.btnSapa.UseVisualStyleBackColor = false;
+            this.btnSapa.Click += new System.EventHandler(this.btnDatNgay_Click);
             // 
             // label_Gia3
             // 
@@ -134,7 +136,7 @@
             this.panel_Tour1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_Tour1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel_Tour1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel_Tour1.Controls.Add(this.button2);
+            this.panel_Tour1.Controls.Add(this.btnDaNang);
             this.panel_Tour1.Controls.Add(this.label_Gia1);
             this.panel_Tour1.Controls.Add(this.label_TenTour1);
             this.panel_Tour1.Controls.Add(this.ptb_TourDN);
@@ -144,17 +146,19 @@
             this.panel_Tour1.Size = new System.Drawing.Size(399, 441);
             this.panel_Tour1.TabIndex = 4;
             // 
-            // button2
+            // btnDaNang
             // 
-            this.button2.BackColor = System.Drawing.Color.Red;
-            this.button2.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button2.Location = new System.Drawing.Point(235, 370);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(140, 52);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Đặt ngay";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnDaNang.BackColor = System.Drawing.Color.Red;
+            this.btnDaNang.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDaNang.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnDaNang.Location = new System.Drawing.Point(235, 370);
+            this.btnDaNang.Name = "btnDaNang";
+            this.btnDaNang.Size = new System.Drawing.Size(140, 52);
+            this.btnDaNang.TabIndex = 4;
+            this.btnDaNang.Tag = "T002";
+            this.btnDaNang.Text = "Đặt ngay";
+            this.btnDaNang.UseVisualStyleBackColor = false;
+            this.btnDaNang.Click += new System.EventHandler(this.btnDatNgay_Click);
             // 
             // label_Gia1
             // 
@@ -196,7 +200,7 @@
             this.panel_Tour2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_Tour2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel_Tour2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel_Tour2.Controls.Add(this.button3);
+            this.panel_Tour2.Controls.Add(this.btnPhuQuoc);
             this.panel_Tour2.Controls.Add(this.label_Gia2);
             this.panel_Tour2.Controls.Add(this.label_TenTour2);
             this.panel_Tour2.Controls.Add(this.pictureBox_Tour2);
@@ -206,17 +210,19 @@
             this.panel_Tour2.Size = new System.Drawing.Size(399, 441);
             this.panel_Tour2.TabIndex = 5;
             // 
-            // button3
+            // btnPhuQuoc
             // 
-            this.button3.BackColor = System.Drawing.Color.Red;
-            this.button3.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.Location = new System.Drawing.Point(240, 366);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(140, 52);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Đặt ngay";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnPhuQuoc.BackColor = System.Drawing.Color.Red;
+            this.btnPhuQuoc.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPhuQuoc.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnPhuQuoc.Location = new System.Drawing.Point(240, 366);
+            this.btnPhuQuoc.Name = "btnPhuQuoc";
+            this.btnPhuQuoc.Size = new System.Drawing.Size(140, 52);
+            this.btnPhuQuoc.TabIndex = 5;
+            this.btnPhuQuoc.Tag = "T003";
+            this.btnPhuQuoc.Text = "Đặt ngay";
+            this.btnPhuQuoc.UseVisualStyleBackColor = false;
+            this.btnPhuQuoc.Click += new System.EventHandler(this.btnDatNgay_Click);
             // 
             // label_Gia2
             // 
@@ -309,9 +315,9 @@
         private System.Windows.Forms.Label label_Gia2;
         private System.Windows.Forms.Label label_TenTour2;
         private System.Windows.Forms.PictureBox pictureBox_Tour2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnSapa;
+        private System.Windows.Forms.Button btnDaNang;
+        private System.Windows.Forms.Button btnPhuQuoc;
         private System.Windows.Forms.Label lbtxt;
     }
 }

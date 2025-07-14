@@ -24,10 +24,11 @@ namespace DataLayer
                     string maNV = reader["MaNV"].ToString();
                     string maKH = reader["MaKH"].ToString();
                     string maTour = reader["MaTour"].ToString();
-                    int soLuongVe = reader["SoLuongVe"] != DBNull.Value?Convert.ToInt32(reader["SoLuongVe"]): 0;
-                    DateTime ngayDangKy = reader["NgayDangKy"] != DBNull.Value?Convert.ToDateTime(reader["NgayDangKy"]): DateTime.MinValue;
-                    DateTime ngayLap = reader["NgayLapHD"] != DBNull.Value? Convert.ToDateTime(reader["NgayLapHD"]): DateTime.MinValue;
-                    decimal thanhTien = reader["ThanhTien"] != DBNull.Value? Convert.ToDecimal(reader["ThanhTien"]): 0;
+                    int soLuongVe = reader["SoLuongVe"] != DBNull.Value ? Convert.ToInt32(reader["SoLuongVe"]) : 0;
+                    DateTime ngayDangKy = reader["NgayDangKy"] != DBNull.Value ? Convert.ToDateTime(reader["NgayDangKy"]) : DateTime.MinValue;
+                    DateTime ngayLap = reader["NgayLapHD"] != DBNull.Value ? Convert.ToDateTime(reader["NgayLapHD"]) : DateTime.MinValue;
+                    decimal thanhTien = reader["ThanhTien"] != DBNull.Value ? Convert.ToDecimal(reader["ThanhTien"]) : 0;
+
                     HoaDon hd = new HoaDon(soHD, maNV, maKH, maTour, soLuongVe, ngayDangKy, ngayLap, thanhTien);
                     lHoaDon.Add(hd);
                 }
@@ -44,82 +45,72 @@ namespace DataLayer
             }
 
         }
-        public int DeleteHoaDon(string soHD)
+
+        public bool DeleteHoaDon(string soHD)
         {
-            string sql = "DELETE FROM HOADON WHERE SoHD = '"+soHD+"'";
+            string sql = "uspDeleteHoaDon";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@SoHD", soHD)
+            };
+
             try
             {
-                return MyExecuteNonQuery(sql, CommandType.Text);
-            }
-            catch(SqlException ex)
-            {
-                throw ex;
-            }
-        }
-        //public bool LuuHoaDon(HoaDon hoaDon)
-        //{
-        //    string sql = "INSERT INTO HOADON (SoHD, MaNV, MaKH, MaTour, SoLuongVe,NgayLapHD, ThanhTien) " +
-        //        "VALUES ('"+hoaDon.SoHD+"', '"+hoaDon.MaNV+"', '"+hoaDon.MaKH+"', '"+hoaDon.MaTour+"', '"+hoaDon.NgayLapHD+"', '"+hoaDon.ThanhTien+"', '"+hoaDon.SoLuongVe+"')";
-        //        try
-        //        {
-        //            int result = MyExecuteNonQuery(query, CommandType.Text);
-        //            return result > 0; // Trả về true nếu thêm thành công
-        //        }
-        //        catch(SqlException ex)
-        //        {
-        //            throw ex;
-        //        }
-        //        catch (Exception)
-        //        {
-        //            return false; // Trả về false nếu có lỗi
-        //        }
-        //}
-        public string GenerateMaHD()
-        {
-            string sql = "SELECT TOP 1 SoHD FROM HOADON WHERE SoHD LIKE 'HD%' ORDER BY SoHD DESC";
-            try
-            {
-                Connect(); 
-                object result = MyExcuteScalar(sql, CommandType.Text);
-                if (result != null && result != DBNull.Value)
-                {
-                    string lastSoHD = result.ToString();
-                    int number = int.Parse(lastSoHD.Substring(2)); 
-                    return "HD" + (number + 1).ToString("D3");    
-                }
-                else
-                {
-                    return "HD000"; 
-                }
+                int result = MyExecuteNonQuery(sql, CommandType.StoredProcedure, parameters);
+                return result > 0;
             }
             catch (SqlException ex)
             {
-                throw ex; 
-            }
-            catch (FormatException ex)
-            {
-                throw ex; 
-            }
-            finally
-            {
-                Disconnect(); 
+                throw new Exception("Lỗi khi xóa hóa đơn: " + ex.Message);
             }
         }
         public string ThemHoaDon(HoaDon hoaDon)
         {
-                string query = @"
-        INSERT INTO HOADON (SoHD,MaNV, MaKH, MaTour,SoLuongVe, NgayLapHD, ThanhTien )
-        VALUES ('"+hoaDon.SoHD+"','"+hoaDon.MaNV+"', '"+hoaDon.MaKH+"', '"+hoaDon.MaTour+"', '"+hoaDon.NgayLapHD+"', '"+hoaDon.ThanhTien+"', '"+hoaDon.SoLuongVe+"')";
+            string sql = "uspAddHoaDon";  // Thủ tục thêm hóa đơn
+            string newInvoiceNumber = GetNewInvoiceNumber();  // Hàm lấy mã hóa đơn mới
+
+            List<SqlParameter> parameters = new List<SqlParameter>
+
+            {
+                new SqlParameter("@SoHD", newInvoiceNumber),
+        new SqlParameter("@MaNV", hoaDon.MaNV),
+        new SqlParameter("@MaKH", hoaDon.MaKH),
+        new SqlParameter("@MaTour", hoaDon.MaTour),
+        new SqlParameter("@NgayLapHD", hoaDon.NgayLapHD),
+        new SqlParameter("@NgayDangKy", hoaDon.NgayDangKy),
+        new SqlParameter("@ThanhTien", hoaDon.ThanhTien),
+        new SqlParameter("@SoLuongVe", hoaDon.SoLuongVe)
+            };
+
             try
             {
-                object result = MyExecuteNonQuery(query, CommandType.Text);
+                int result = MyExecuteNonQuery(sql, CommandType.StoredProcedure, parameters);
 
-                return result?.ToString();
+                if (result > 0)
+                    return newInvoiceNumber;  // Trả về mã hóa đơn mới
+                else
+                    return null;  // Trả về null nếu thêm thất bại
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
-                throw ex;
-            }      
+                throw new Exception("Lỗi khi thêm hóa đơn: " + ex.Message);
+            }
+        }
+
+        private string GetNewInvoiceNumber()
+        {
+            string query = "SELECT MAX(CAST(SUBSTRING(SoHD, 3, 3) AS INT)) FROM HOADON";
+            object maxValue = MyExcuteScalar(query, CommandType.Text);
+
+            int currentMax = 0;
+            if (maxValue != null && maxValue != DBNull.Value)
+            {
+                currentMax = Convert.ToInt32(maxValue);
+            }
+
+            int newInvoiceNumber = currentMax + 1;
+            return "HD" + newInvoiceNumber.ToString("D3");
         }
     }
 }
+

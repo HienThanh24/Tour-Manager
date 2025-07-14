@@ -9,7 +9,7 @@ using TransferObject;
 
 namespace DataLayer
 {
-    public class DangKyTKDL:DataProvider
+    public class DangKyTKDL : DataProvider
     {
         public int Insert(Account acc)
         {
@@ -20,9 +20,9 @@ namespace DataLayer
             parameters.Add(new SqlParameter("@MaNV", acc.MaNV));
             try
             {
-                return MyExecuteNonQuery(sql,CommandType.StoredProcedure,parameters);
+                return MyExecuteNonQuery(sql, CommandType.StoredProcedure, parameters);
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 throw ex;
             }
@@ -35,7 +35,7 @@ namespace DataLayer
                 int count = (int)MyExcuteScalar(sql, CommandType.Text);
                 return count > 0;
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 throw ex;
             }

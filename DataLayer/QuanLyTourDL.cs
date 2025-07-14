@@ -11,10 +11,10 @@ namespace DataLayer
 {
     public class QuanLyTourDL : DataProvider
     {
-        public List<Tour> GetTour()
+        public List<Tour> GetTours()
         {
-            List<Tour> lTour = new List<Tour>();
-            string sql = "SELECT * FROM TOUR";
+            List<Tour> tours = new List<Tour>();
+            string sql = "SELECT * FROM THONGTINTOUR";
 
             try
             {
@@ -35,10 +35,10 @@ namespace DataLayer
                     string maDDL = reader[10].ToString();
 
                     Tour tour = new Tour(maTour, tenTour, moTaTour, anhTour, giaTour, tgBatDau, tgKetThuc, maLoaiTour, maPhuongTien, maXP, maDDL);
-                    lTour.Add(tour);
+                    tours.Add(tour);
                 }
                 reader.Close();
-                return lTour;
+                return tours;
             }
             catch (SqlException ex)
             {
@@ -49,39 +49,8 @@ namespace DataLayer
                 Disconnect();
             }
         }
-       
-        public string GenerateMaTour()
-        {
-            string sql = "SELECT TOP 1 MaTour FROM THONGTINTOUR WHERE MaTour LIKE 'T%' ORDER BY MaPhuongTien DESC";
-            try
-            {
-                Connect();
-                object result = MyExcuteScalar(sql, CommandType.Text);
-                if (result != null && result != DBNull.Value)
-                {
-                    string lastMaTour = result.ToString();
-                    int number = int.Parse(lastMaTour.Substring(2));
-                    return "T" + (number + 1).ToString("D3");
-                }
-                else
-                {
-                    return "T000";
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
-            catch (FormatException ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                Disconnect();
-            }
-        }
-        public int InsertTour(Tour t)
+
+        public string InsertTour(Tour t)
         {
             string sql = "uspAddTour";
             List<SqlParameter> parameters = new List<SqlParameter>();
@@ -96,16 +65,19 @@ namespace DataLayer
             parameters.Add(new SqlParameter("@MaPhuongTien", t.MaPhuongTien));
             parameters.Add(new SqlParameter("@MaXP", t.MaXP));
             parameters.Add(new SqlParameter("@MaDDL", t.MaDDL));
+
             try
             {
-                return MyExecuteNonQuery(sql, CommandType.StoredProcedure, parameters);
+                int result = MyExecuteNonQuery(sql, CommandType.StoredProcedure, parameters);
+                return result > 0 ? t.MaTour : null; // giữ nguyên logic return string
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 throw ex;
             }
         }
-        public int UpdateTour(Tour t)
+
+        public bool UpdateTour(Tour t)
         {
             string sql = "uspUpdateTour";
             List<SqlParameter> parameters = new List<SqlParameter>();
@@ -120,42 +92,48 @@ namespace DataLayer
             parameters.Add(new SqlParameter("@MaPhuongTien", t.MaPhuongTien));
             parameters.Add(new SqlParameter("@MaXP", t.MaXP));
             parameters.Add(new SqlParameter("@MaDDL", t.MaDDL));
+
             try
             {
-                return MyExecuteNonQuery(sql, CommandType.StoredProcedure,parameters);
+                return MyExecuteNonQuery(sql, CommandType.StoredProcedure, parameters) > 0;
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 throw ex;
             }
         }
 
-        public int DeleteTour(string maTour)
+        public bool DeleteTour(string maTour)
         {
-            string sql = "DELETE FROM TOUR WHERE MaTour = '"+maTour+"'";
+            string sql = "uspDeleteTour";
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            parameters.Add(new SqlParameter("@MaTour", maTour));
+
             try
             {
-                return MyExecuteNonQuery(sql, CommandType.Text);
+                return MyExecuteNonQuery(sql, CommandType.StoredProcedure, parameters) > 0;
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
+
                 throw ex;
             }
         }
+
         public bool IsCheckKH_Tour(string maTour)
         {
-            string sql = "SELECT COUNT(*) FROM HOADON WHERE MaTour = '"+maTour+"'";
+            string sql = "SELECT COUNT(*) FROM HOADON WHERE MaTour = '" + maTour + "'";
             try
             {
-                object result = MyExcuteScalar(sql, CommandType.Text);
-                int count = result != null ? Convert.ToInt32(result) : 0;
+                int count = (int)MyExcuteScalar(sql, CommandType.Text);
                 return count > 0;
             }
             catch (SqlException ex)
             {
                 throw ex;
-            }   
+            }
         }
     }
 }
+
 
