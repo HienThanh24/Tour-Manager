@@ -4,9 +4,3 @@
 // using System.Text;
 // using System.Threading.Tasks;
 
-// namespace BusinessLayer
-// {
-//     public class Class1
-//     {
-//     }
-// }
